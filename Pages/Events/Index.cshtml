@@ -1,0 +1,33 @@
+﻿@page
+@model EventFind.Pages.Events.IndexModel
+@{
+    ViewData["Title"] = "Events";
+}
+<h1>Events</h1>
+<form method="get" class="mb-3">
+    <div class="form-group">
+        <label for="category">Filter by Category</label>
+        <select asp-for="CategoryFilter" class="form-control" asp-items="Model.Categories" onchange="this.form.submit()">
+            <option value="">All</option>
+        </select>
+    </div>
+</form>
+<div class="row">
+    @foreach (var item in Model.Events)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@item.Description</p>
+                    <p class="card-text"><small class="text-muted">@item.StartDate.ToString("d MMM yyyy") - @item.City</small></p>
+                    <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@if (User.Identity.IsAuthenticated)
+{
+    <p><a asp-page="Create" class="btn btn-success">Create New Event</a></p>
+}

@@ -1,0 +1,33 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using EventFind.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model EventFind.Pages.Categories.CreateModel
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <h1>Create Category</h1>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Category.Name"></label>
+            <input asp-for="Category.Name" class="form-control" />
+            <span asp-validation-for="Category.Name" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+}
+else
+{
+    <h1>Access Denied</h1>
+    <p class="text-danger">You do not have permission to access this page.</p>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

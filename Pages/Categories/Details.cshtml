@@ -1,0 +1,19 @@
+﻿@page
+@model EventFind.Pages.Categories.DetailsModel
+@{
+    ViewData["Title"] = "Category Details";
+}
+<h1>@Model.Category.Name</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Category.Name</h5>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-page="./Edit" asp-route-id="@Model.Category.Id" class="btn btn-primary">Edit</a>
+            <a asp-page="./Delete" asp-route-id="@Model.Category.Id" class="btn btn-danger">Delete</a>
+        }
+
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

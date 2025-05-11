@@ -1,0 +1,27 @@
+﻿@page
+@model EventFind.Pages.DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<div class="text-center">
+    <h1 class="display-4">Welcome to Event Find</h1>
+    <p>Discover and create amazing events!</p>
+</div>
+<div class="row">
+    @foreach (var item in Model.Events)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@item.Description</p>
+                    <p class="card-text"><small class="text-muted">@item.StartDate.ToString("d MMM yyyy") - @item.City</small></p>
+                    <a asp-page="/Events/Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                    <a asp-page="/Events/Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-page="/Events/Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<p><a asp-page="/Events/Create" class="btn btn-success">Create New Event</a></p>

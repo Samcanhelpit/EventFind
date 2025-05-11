@@ -1,0 +1,29 @@
+﻿@page
+@model EventFind.Pages.Events.DetailsModel
+@{
+    ViewData["Title"] = "Event Details";
+}
+<h1>@Model.Event.Title</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Event.Title</h5>
+        <p class="card-text">@Model.Event.Description</p>
+        <p class="card-text"><strong>Start Date:</strong> @Model.Event.StartDate.ToString("d MMM yyyy")</p>
+        <p class="card-text"><strong>End Date:</strong> @Model.Event.EndDate.ToString("d MMM yyyy")</p>
+        <p class="card-text"><strong>City:</strong> @Model.Event.City</p>
+        <p class="card-text"><strong>Country:</strong> @Model.Event.Country</p>
+        <p class="card-text"><strong>Address:</strong> @Model.Event.Address</p>
+        <p class="card-text"><strong>Category:</strong> @Model.Event.Category.Name</p>
+        <p class="card-text"><strong>Category:</strong> @Model.Event.SignupLinkFromCreator</p>
+        @if (User.IsInRole("Admin") || User.Identity.Name == Model.Event.User?.Email)
+        {
+            <p class="card-text"><strong>User:</strong> @Model.Event.User.FullName</p>
+        }
+        @if (User.IsInRole("Admin") || User.Identity.Name == Model.Event.User?.Email)
+        {
+            <a asp-page="./Edit" asp-route-id="@Model.Event.Id" class="btn btn-primary">Edit</a>
+            <a asp-page="./Delete" asp-route-id="@Model.Event.Id" class="btn btn-danger">Delete</a>
+        }
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
