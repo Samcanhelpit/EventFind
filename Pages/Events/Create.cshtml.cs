@@ -34,10 +34,12 @@ public class CreateModel : PageModel
             })
             .ToListAsync();
     }
+    
     public async Task<IActionResult> OnPostAsync()
     {
         ModelState.Remove("Event.Category");
         ModelState.Remove("Event.User");
+
         if (!ModelState.IsValid)
         {
             Categories = await _context.Categories
@@ -66,7 +68,6 @@ public class CreateModel : PageModel
 
         Event.User_ID = user.Id;
 
-        // Ensure the selected Category_ID exists
         if (!await _context.Categories.AnyAsync(c => c.Id == Event.Category_ID))
         {
             ModelState.AddModelError("Event.Category_ID", "Invalid category selected.");
@@ -83,6 +84,12 @@ public class CreateModel : PageModel
         _context.Events.Add(Event);
         await _context.SaveChangesAsync();
 
+        if (Event.IsPromoted)
+        {
+            return RedirectToPage("/Events/Payment", new { id = Event.Id });
+        }
+
         return RedirectToPage("./Index");
     }
+
 }
