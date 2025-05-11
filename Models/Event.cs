@@ -26,22 +26,31 @@ public class Event
     [Required(ErrorMessage = "City is required.")]
     [StringLength(50, ErrorMessage = "City name cannot exceed 50 characters.")]
     public string City { get; set; }
+
     [Required(ErrorMessage = "Country is required.")]
     [StringLength(50, ErrorMessage = "Country name cannot exceed 50 characters.")]
     public string Country { get; set; }
+
     [Required(ErrorMessage = "Address is required.")]
     [StringLength(255, ErrorMessage = "Address cannot exceed 255 characters.")]
     public string Address { get; set; }
+
     [ForeignKey("Category")]
     [Required]
-    public int Category_ID { get; set; }    
+    public int Category_ID { get; set; }
     public Category Category { get; set; }
+
     [ForeignKey("User")]
     public string User_ID { get; set; }
     public ApplicationUser User { get; set; }
+
     [Url(ErrorMessage = "Invalid URL format.")]
     public required string SignupLinkFromCreator { get; set; }
+
+    // promotion feature
+    public bool IsPromoted { get; set; } = false;
 }
+
 public class FutureDateAttribute : ValidationAttribute
 {
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
