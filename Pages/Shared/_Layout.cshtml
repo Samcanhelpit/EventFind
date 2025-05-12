@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
-  
 </head>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYCVQK5ND6"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-PYCVQK5ND6');
 </script>
+
 <body>
     <header>
         <nav class="navbar p-4">
@@ -46,11 +46,16 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="py-4">
             @RenderBody()
         </main>
     </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" class="btn btn-primary" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 1000;">↑ Top</button>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -60,7 +65,7 @@
             function handleCreateEventButton() {
                 const createEventButton = document.getElementById('createEventButton');
                 const isLoggedIn = @User.Identity.IsAuthenticated.ToString().ToLower();
-                if (!isLoggedIn) {
+                if (createEventButton && !isLoggedIn) {
                     createEventButton.addEventListener("click", (e) => {
                         e.preventDefault();
                         showModal();
@@ -68,7 +73,6 @@
                 }
             }
 
-            // Show Modal for Non-Logged-In Users
             function showModal() {
                 const modal = document.createElement('div');
                 modal.classList.add('modal');
@@ -79,14 +83,23 @@
                     </div>
                 `;
                 document.body.appendChild(modal);
-
                 document.getElementById('closeModal').addEventListener('click', () => {
                     modal.remove();
                     window.location.href = '/Identity/Account/Login';
                 });
             }
+
+            // Back to Top functionality
+            const topBtn = document.getElementById("backToTopBtn");
+            window.addEventListener("scroll", () => {
+                topBtn.style.display = window.scrollY > 200 ? "block" : "none";
+            });
+            topBtn.addEventListener("click", () => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
         });
     </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -24,7 +24,7 @@
         <p class="card-text"><strong>Country:</strong> @Model.Event.Country</p>
         <p class="card-text"><strong>Address:</strong> @Model.Event.Address</p>
         <p class="card-text"><strong>Category:</strong> @Model.Event.Category.Name</p>
-        <p class="card-text"><strong>Category:</strong> @Model.Event.SignupLinkFromCreator</p>
+        <p class="card-text"><strong>Event Sign-up Link:</strong> @Model.Event.SignupLinkFromCreator</p>
         @if (User.IsInRole("Admin") || User.Identity.Name == Model.Event.User?.Email)
         {
             <p class="card-text"><strong>User:</strong> @Model.Event.User.FullName</p>
