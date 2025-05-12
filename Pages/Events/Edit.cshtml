@@ -8,6 +8,8 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Event.Id" />
     <input type="hidden" asp-for="Event.User_ID" />
+    <input type="hidden" asp-for="Event.IsPromoted" /> <!-- ✅ Preserve promotion status -->
+
     <div class="form-group">
         <label>Category</label>
         <select asp-for="Event.Category_ID" asp-items="Model.Categories" class="form-control">
